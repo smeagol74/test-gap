@@ -50,45 +50,45 @@ var app = {
     },
     renderHome: function () {
         console.log('renderHome() <--');
-        setTimeout(function () {
-            $.mobile.changePage('page/index.html', {transition: 'slideup'});
-        }, 200);
+        var $body = $('body');
 
-//        $.mobile.changePage($('div#index:jqmData(role=page)'));
-//
-//        var $body = $('body'),
-//            $page = $body.find(':jqmData(role=page)');
-//
-//        $page.empty();
-//        $page.haml([
-//            [_.div, {'data-role': 'header'},
-//                [_.h1, 'Умное приложение']
-//            ],
-//            [_.div, {'data-role': 'content'},
-//                [_.p, 'Содержимое странички'],
-//                [_.a, {href: '#', 'data-role': 'button', 'data-icon': 'star'}, 'Супер снопка']
-//            ],
-//            [_.div, {'data-role': 'footer'},
-//                [_.h4, 'Подвал странички']
-//            ]
-//        ]);
+        $body.haml([_.div + '#index', {'data-role': 'page'},
+            [_.div, {'data-role': 'header', 'data-position': 'fixed'},
+                [_.h1, 'Умное приложение']
+            ],
+            [_.div, {'data-role': 'content'},
+                [_.p, 'Содержимое странички'],
+                [_.a + '#btn-super', {href: '#', 'data-role': 'button', 'data-icon': 'star'}, 'Супер снопка']
+            ],
+            [_.div, {'data-role': 'footer', 'data-position': 'fixed'},
+                [_.h4, 'Подвал странички']
+            ]
+        ]);
+        var $page = $body.find('div#index:jqmData(role=page)'),
+            $content = $page.find('div:jqmData(role=content)');
+        $page.find('a#btn-super').click(function(){
+            $content.haml([_.a + '#btn-new', {href: '#', 'data-role': 'button', 'data-icon': 'home'}, 'Новая кнопка']).trigger('create').trigger('refresh');
+            $content.find('a#btn-new').click(function () {
+                alert('hello');
+            });
+        });
+        $page.page();
+        setTimeout(function () {
+            $.mobile.changePage($page, {transition: 'slideup'});
+        }, 200);
         console.log('renderHome() -->');
     },
     /**
      * url, absUrl, dataUrl, options, xhr, textStatus
      */
     onPageLoad: function (event, data) {
-        switch (data.url) {
-            case 'page/index.html':
-                var $page = $('div#index:jqmData(role=page)'),
-                    $content = $page.find('div:jqmData(role=content)');
-                $content.find('a#btn-super').click(function () {
-                    $content.haml([_.a + '#btn-new', {href: '#', 'data-role': 'button', 'data-icon': 'home'}, 'Новая кнопка']).trigger('enchance');
-                    $content.find('a#btn-new').click(function () {
-                        alert('hello');
-                    });
-                });
-                break;
-        }
+//        switch (data.url) {
+//            case 'page/index.html':
+//                var $page = $('div#index:jqmData(role=page)'),
+//                    $content = $page.find('div:jqmData(role=content)');
+//                $content.find('a#btn-super').click(function () {
+//                });
+//                break;
+//        }
     }
 };
