@@ -19,7 +19,7 @@ DerivedData
 
 # PhoneGap
 CordovaLib/
-Cordova/
+cordova/
 TestPhoneGap/
 TestPhoneGap.xcodeproj/
 
